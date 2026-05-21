@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Usuarios | BurgerCRM</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <nav class="sidebar" id="sidebar">
+
+            <div class="sidebar__logo">
+                <div class="sidebar__logo-title">
+                    BurgerCRM
+                </div>
+
+                <div class="sidebar__logo-sub">
+                    Sistema de Gestión
+                </div>
+            </div>
+
+            <div class="sidebar__nav">
+
+                <a href="dashboard.html" class="sidebar__nav-item">
+                    Dashboard
+                </a>
+
+                <a href="clientes.html" class="sidebar__nav-item">
+                    Clientes
+                </a>
+
+                <a href="productos.html" class="sidebar__nav-item">
+                    Productos
+                </a>
+
+                <a href="usuarios.html" class="sidebar__nav-item sidebar__nav-item--active">
+                    Usuarios
+                </a>
+
+                <a href="ventas.html" class="sidebar__nav-item">
+                    Ventas
+                </a>
+
+                <a href="detalles.html" class="sidebar__nav-item">
+                    Detalle Venta
+                </a>
+
+            </div>
+
+            <div class="sidebar__footer">
+                BurgerCRM v1.0 · 1º DAM
+            </div>
+
+        </nav>
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="topbar__left">
+
+                <button class="topbar__hamburger" onclick="toggleSidebar()">
+                    ☰
+                </button>
+
+                <h1 class="topbar__title">
+                    Usuarios
+                </h1>
+
+            </div>
+
+        </header>
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <section class="page page--active">
+
+                <h1 class="page-title">
+                    Usuarios
+                </h1>
+
+                <!-- HEADER CRUD -->
+                <div class="crud-header">
+
+                    <div class="crud-header__search">
+
+                        <input type="text" id="searchInput" class="input input--sm" placeholder="Buscar usuario...">
+
+                    </div>
+
+                    <button class="btn btn--primary" onclick="abrirModalNuevo()">
+                        + Nuevo Usuario
+                    </button>
+
+                </div>
+
+                <!-- TABLA -->
+                <div class="table-wrap">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="tablaUsuarios">
+
+                            <!-- Filas generadas por JS -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- MODAL NUEVO / EDITAR USUARIO -->
+    <div class="modal-overlay" id="modalOverlay">
+
+        <div class="modal">
+
+            <div class="modal__header">
+                <h2 class="modal__title" id="modalTitle">Nuevo Usuario</h2>
+                <button class="modal__close" onclick="cerrarModal()">✕</button>
+            </div>
+
+            <div class="modal__body">
+
+                <div class="form-group">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" id="inputNombre" class="input" placeholder="Nombre completo">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="inputEmail" class="input" placeholder="correo@ejemplo.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Rol</label>
+                    <select id="inputRol" class="input">
+                        <option value="Admin">Admin</option>
+                        <option value="Cajero">Cajero</option>
+                        <option value="Cocinero">Cocinero</option>
+                        <option value="Repartidor">Repartidor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Estado</label>
+                    <select id="inputEstado" class="input">
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="modal__footer">
+                <button class="btn btn--secondary" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn--primary" onclick="guardarUsuario()">Guardar</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="js/usuarios.js"></script>
+
+</body>
+
+</html>
