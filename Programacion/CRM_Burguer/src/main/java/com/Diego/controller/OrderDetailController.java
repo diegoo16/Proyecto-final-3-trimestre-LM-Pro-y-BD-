@@ -14,17 +14,22 @@ public class OrderDetailController {
     public void createOrderDetail(){
 
         System.out.print("Order ID: ");
-        int orderId = sc.nextInt();
+        int orderId =
+                Integer.parseInt(sc.nextLine());
 
         System.out.print("Product ID: ");
-        int productId = sc.nextInt();
+        int productId =
+                Integer.parseInt(sc.nextLine());
 
         System.out.print("Quantity: ");
-        int quantity = sc.nextInt();
+        int quantity =
+                Integer.parseInt(sc.nextLine());
 
         System.out.print("Subtotal: ");
-        double subtotal = sc.nextDouble();
-        sc.nextLine();
+        String subtotalText =
+                sc.nextLine().replace(",", ".");
+        double subtotal =
+                Double.parseDouble(subtotalText);
 
         OrderDetail od =
                 new OrderDetail(
