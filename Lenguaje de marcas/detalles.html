@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Detalle Venta | BurgerCRM</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <nav class="sidebar" id="sidebar">
+
+            <div class="sidebar__logo">
+                <div class="sidebar__logo-title">
+                    BurgerCRM
+                </div>
+
+                <div class="sidebar__logo-sub">
+                    Sistema de Gestión
+                </div>
+            </div>
+
+            <div class="sidebar__nav">
+
+                <a href="dashboard.html" class="sidebar__nav-item">
+                    Dashboard
+                </a>
+
+                <a href="clientes.html" class="sidebar__nav-item">
+                    Clientes
+                </a>
+
+                <a href="productos.html" class="sidebar__nav-item">
+                    Productos
+                </a>
+
+                <a href="usuarios.html" class="sidebar__nav-item">
+                    Usuarios
+                </a>
+
+                <a href="ventas.html" class="sidebar__nav-item">
+                    Ventas
+                </a>
+
+                <a href="detalles.html" class="sidebar__nav-item sidebar__nav-item--active">
+                    Detalle Venta
+                </a>
+
+            </div>
+
+            <div class="sidebar__footer">
+                BurgerCRM v1.0 · 1º DAM
+            </div>
+
+        </nav>
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="topbar__left">
+
+                <button class="topbar__hamburger" onclick="toggleSidebar()">
+                    ☰
+                </button>
+
+                <h1 class="topbar__title">
+                    Detalle Venta
+                </h1>
+
+            </div>
+
+        </header>
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <section class="page page--active">
+
+                <h1 class="page-title">
+                    Detalle Venta
+                </h1>
+
+                <!-- SELECTOR DE VENTA -->
+                <div class="crud-header">
+
+                    <div class="crud-header__search">
+                        <select id="selectVenta" class="input input--sm" onchange="cargarVenta()">
+                            <option value="">— Selecciona una venta —</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn--primary" onclick="abrirModalLinea()">
+                        + Añadir Línea
+                    </button>
+
+                </div>
+
+                <!-- INFO DE VENTA -->
+                <div class="detalle-info" id="detalleInfo" style="display:none;">
+
+                    <div class="info-card">
+                        <span class="info-card__label">Cliente</span>
+                        <span class="info-card__value" id="infoCliente">—</span>
+                    </div>
+
+                    <div class="info-card">
+                        <span class="info-card__label">Cajero</span>
+                        <span class="info-card__value" id="infoCajero">—</span>
+                    </div>
+
+                    <div class="info-card">
+                        <span class="info-card__label">Fecha</span>
+                        <span class="info-card__value" id="infoFecha">—</span>
+                    </div>
+
+                    <div class="info-card">
+                        <span class="info-card__label">Estado</span>
+                        <span class="info-card__value" id="infoEstado">—</span>
+                    </div>
+
+                </div>
+
+                <!-- TABLA DE LÍNEAS -->
+                <div class="table-wrap" id="tablaWrap" style="display:none;">
+
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th>Línea</th>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unit.</th>
+                                <th>Subtotal</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tablaLineas">
+                            <!-- Filas generadas por JS -->
+                        </tbody>
+
+                        <tfoot>
+                            <tr class="table-total">
+                                <td colspan="5" style="text-align:right; font-weight:600; padding: 12px 16px;">
+                                    TOTAL
+                                </td>
+                                <td id="totalVenta" style="font-weight:700; font-size:16px; padding: 12px 16px;">
+                                    0,00 €
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+
+                </div>
+
+                <!-- MENSAJE VACÍO -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-state__icon">🧾</div>
+                    <p class="empty-state__text">Selecciona una venta para ver su detalle</p>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- MODAL AÑADIR / EDITAR LÍNEA -->
+    <div class="modal-overlay" id="modalOverlay">
+
+        <div class="modal">
+
+            <div class="modal__header">
+                <h2 class="modal__title" id="modalTitle">Añadir Línea</h2>
+                <button class="modal__close" onclick="cerrarModal()">✕</button>
+            </div>
+
+            <div class="modal__body">
+
+                <div class="form-group">
+                    <label class="form-label">Producto</label>
+                    <select id="inputProducto" class="input" onchange="autocompletarPrecio()">
+                        <option value="">— Selecciona —</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cantidad</label>
+                    <input type="number" id="inputCantidad" class="input" placeholder="1" min="1" step="1" oninput="calcularSubtotal()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Precio Unitario (€)</label>
+                    <input type="number" id="inputPrecio" class="input" placeholder="0.00" min="0" step="0.01" oninput="calcularSubtotal()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Subtotal</label>
+                    <input type="text" id="inputSubtotal" class="input" placeholder="0,00 €" readonly>
+                </div>
+
+            </div>
+
+            <div class="modal__footer">
+                <button class="btn btn--secondary" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn--primary" onclick="guardarLinea()">Guardar</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="js/detalles.js"></script>
+
+</body>
+
+</html>
