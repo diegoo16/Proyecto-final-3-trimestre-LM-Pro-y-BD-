@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ventas | BurgerCRM</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <nav class="sidebar" id="sidebar">
+
+            <div class="sidebar__logo">
+                <div class="sidebar__logo-title">
+                    BurgerCRM
+                </div>
+
+                <div class="sidebar__logo-sub">
+                    Sistema de Gestión
+                </div>
+            </div>
+
+            <div class="sidebar__nav">
+
+                <a href="dashboard.html" class="sidebar__nav-item">
+                    Dashboard
+                </a>
+
+                <a href="clientes.html" class="sidebar__nav-item">
+                    Clientes
+                </a>
+
+                <a href="productos.html" class="sidebar__nav-item">
+                    Productos
+                </a>
+
+                <a href="usuarios.html" class="sidebar__nav-item">
+                    Usuarios
+                </a>
+
+                <a href="ventas.html" class="sidebar__nav-item sidebar__nav-item--active">
+                    Ventas
+                </a>
+
+                <a href="detalles.html" class="sidebar__nav-item">
+                    Detalle Venta
+                </a>
+
+            </div>
+
+            <div class="sidebar__footer">
+                BurgerCRM v1.0 · 1º DAM
+            </div>
+
+        </nav>
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="topbar__left">
+
+                <button class="topbar__hamburger" onclick="toggleSidebar()">
+                    ☰
+                </button>
+
+                <h1 class="topbar__title">
+                    Ventas
+                </h1>
+
+            </div>
+
+        </header>
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <section class="page page--active">
+
+                <h1 class="page-title">
+                    Ventas
+                </h1>
+
+                <!-- HEADER CRUD -->
+                <div class="crud-header">
+
+                    <div class="crud-header__search">
+                        <input type="text" id="searchInput" class="input input--sm" placeholder="Buscar venta...">
+                    </div>
+
+                    <button class="btn btn--primary" onclick="abrirModalNuevo()">
+                        + Nueva Venta
+                    </button>
+
+                </div>
+
+                <!-- TABLA -->
+                <div class="table-wrap">
+
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Cajero</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tablaVentas">
+                            <!-- Filas generadas por JS -->
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- MODAL NUEVA / EDITAR VENTA -->
+    <div class="modal-overlay" id="modalOverlay">
+
+        <div class="modal">
+
+            <div class="modal__header">
+                <h2 class="modal__title" id="modalTitle">Nueva Venta</h2>
+                <button class="modal__close" onclick="cerrarModal()">✕</button>
+            </div>
+
+            <div class="modal__body">
+
+                <div class="form-group">
+                    <label class="form-label">Cliente</label>
+                    <input type="text" id="inputCliente" class="input" placeholder="Nombre del cliente">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cajero</label>
+                    <input type="text" id="inputCajero" class="input" placeholder="Nombre del cajero">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Fecha</label>
+                    <input type="date" id="inputFecha" class="input">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Total (€)</label>
+                    <input type="number" id="inputTotal" class="input" placeholder="0.00" min="0" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Estado</label>
+                    <select id="inputEstado" class="input">
+                        <option value="Completada">Completada</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Cancelada">Cancelada</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="modal__footer">
+                <button class="btn btn--secondary" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn--primary" onclick="guardarVenta()">Guardar</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="js/ventas.js"></script>
+
+</body>
+
+</html>
