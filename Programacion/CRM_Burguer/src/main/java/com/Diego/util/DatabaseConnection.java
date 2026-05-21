@@ -10,7 +10,7 @@ public class DatabaseConnection {
             "jdbc:mysql://localhost:3306/hamburgueseria_crm";
 
     private static final String USER = "root";
-    private static final String PASSWORD = "1234";
+    private static final String PASSWORD = "Admin1234";
 
     public static Connection getConnection()
             throws SQLException {

@@ -15,14 +15,18 @@ public class OrderController {
     public void createOrder(){
 
         System.out.print("Customer ID: ");
-        int customerId = sc.nextInt();
+        int customerId =
+                Integer.parseInt(sc.nextLine());
 
         System.out.print("Employee ID: ");
-        int employeeId = sc.nextInt();
+        int employeeId =
+                Integer.parseInt(sc.nextLine());
 
         System.out.print("Total: ");
-        double total = sc.nextDouble();
-        sc.nextLine();
+        String totalText =
+                sc.nextLine().replace(",", ".");
+        double total =
+                Double.parseDouble(totalText);
 
         Order o =
                 new Order(

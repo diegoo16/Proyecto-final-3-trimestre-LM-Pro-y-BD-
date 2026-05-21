@@ -2,13 +2,13 @@ package com.Diego.controller;
 
 import com.Diego.model.Product;
 import com.Diego.service.ProductService;
+
 import java.util.Scanner;
 
 public class ProductController {
 
     private Scanner sc = new Scanner(System.in);
-    private ProductService service =
-            new ProductService();
+    private ProductService service = new ProductService();
 
     public void createProduct(){
 
@@ -16,15 +16,14 @@ public class ProductController {
         String name = sc.nextLine();
 
         System.out.print("Price: ");
-        double price = sc.nextDouble();
-        sc.nextLine();
+        String priceText = sc.nextLine().replace(",", ".");
+        double price = Double.parseDouble(priceText);
 
         System.out.print("Category: ");
         String category = sc.nextLine();
 
         System.out.print("Stock: ");
-        int stock = sc.nextInt();
-        sc.nextLine();
+        int stock = Integer.parseInt(sc.nextLine());
 
         Product p =
                 new Product(0,name,price,category,stock);
