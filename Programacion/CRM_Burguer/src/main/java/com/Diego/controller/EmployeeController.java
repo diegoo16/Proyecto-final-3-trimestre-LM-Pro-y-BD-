@@ -2,6 +2,7 @@ package com.Diego.controller;
 
 import com.Diego.model.Employee;
 import com.Diego.service.EmployeeService;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,80 +22,106 @@ public class EmployeeController {
             System.out.println("5. Eliminar Empleado");
             System.out.println("0. Volver");
             System.out.print("Seleccione opción: ");
-            opcion = sc.nextInt();
-            sc.nextLine();
 
-            switch (opcion) {
-                case 1: createEmployee(); break;
-                case 2: listEmployees(); break;
-                case 3: findEmployeeById(); break;
-                case 4: updateEmployee(); break;
-                case 5: deleteEmployee(); break;
-                case 0: break;
-                default: System.out.println("❌ Opción no válida");
+            try {
+                opcion = sc.nextInt();
+                sc.nextLine();
+
+                switch (opcion) {
+                    case 1: createEmployee(); break;
+                    case 2: listEmployees(); break;
+                    case 3: findEmployeeById(); break;
+                    case 4: updateEmployee(); break;
+                    case 5: deleteEmployee(); break;
+                    case 0: System.out.println("Volviendo..."); break;
+                    default: System.out.println(" Opción no válida");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println(" Error: Debes introducir un número.");
+                sc.nextLine();
+                opcion = -1;
             }
         } while (opcion != 0);
     }
 
     public void createEmployee() {
-        System.out.print("Nombre: ");
-        String name = sc.nextLine();
-        System.out.print("Cargo: ");
-        String role = sc.nextLine();
-        System.out.print("Salario: ");
-        double salary = sc.nextDouble();
-        sc.nextLine();
+        try {
+            System.out.print("Nombre: ");
+            String name = sc.nextLine();
+            System.out.print("Cargo: ");
+            String role = sc.nextLine();
+            System.out.print("Salario: ");
+            double salary = Double.parseDouble(sc.nextLine().replace(",", "."));
 
-        Employee e = new Employee(0, name, role, salary);
-        service.addEmployee(e);
+            Employee e = new Employee(0, name, role, salary);
+            service.addEmployee(e);
+        } catch (Exception e) {
+            System.out.println(" Error al crear empleado: " + e.getMessage());
+        }
     }
 
     public void listEmployees() {
-        List<Employee> employees = service.getAllEmployees();
-        System.out.println("\n=== LISTA DE EMPLEADOS ===");
-        for (Employee e : employees) {
-            System.out.println(e.getId() + " | " + e.getName() + " | " + e.getRole() + " | " + e.getSalary() + "€");
+        try {
+            List<Employee> employees = service.getAllEmployees();
+            System.out.println("\n=== LISTA DE EMPLEADOS ===");
+            for (Employee e : employees) {
+                System.out.println(e.getId() + " | " + e.getName() + " | " + e.getRole() + " | " + e.getSalary() + "€");
+            }
+        } catch (Exception e) {
+            System.out.println(" Error al listar: " + e.getMessage());
         }
     }
 
     public void findEmployeeById() {
-        System.out.print("ID del empleado: ");
-        int id = Integer.parseInt(sc.nextLine());
-        Employee e = service.getEmployeeById(id);
-        if (e != null) {
-            System.out.println("ID: " + e.getId());
-            System.out.println("Nombre: " + e.getName());
-            System.out.println("Cargo: " + e.getRole());
-            System.out.println("Salario: " + e.getSalary());
-        } else {
-            System.out.println("❌ Empleado no encontrado");
+        try {
+            System.out.print("ID del empleado: ");
+            int id = Integer.parseInt(sc.nextLine());
+            Employee e = service.getEmployeeById(id);
+            if (e != null) {
+                System.out.println("ID: " + e.getId());
+                System.out.println("Nombre: " + e.getName());
+                System.out.println("Cargo: " + e.getRole());
+                System.out.println("Salario: " + e.getSalary());
+            } else {
+                System.out.println(" Empleado no encontrado");
+            }
+        } catch (Exception e) {
+            System.out.println(" Error: ID inválido");
         }
     }
 
     public void updateEmployee() {
-        System.out.print("ID del empleado: ");
-        int id = Integer.parseInt(sc.nextLine());
-        Employee e = service.getEmployeeById(id);
-        if (e == null) return;
+        try {
+            System.out.print("ID del empleado: ");
+            int id = Integer.parseInt(sc.nextLine());
+            Employee e = service.getEmployeeById(id);
+            if (e == null) return;
 
-        System.out.print("Nuevo Nombre: ");
-        String name = sc.nextLine();
-        if (!name.isEmpty()) e.setName(name);
+            System.out.print("Nuevo Nombre: ");
+            String name = sc.nextLine();
+            if (!name.isEmpty()) e.setName(name);
 
-        System.out.print("Nuevo Cargo: ");
-        String role = sc.nextLine();
-        if (!role.isEmpty()) e.setRole(role);
+            System.out.print("Nuevo Cargo: ");
+            String role = sc.nextLine();
+            if (!role.isEmpty()) e.setRole(role);
 
-        System.out.print("Nuevo Salario: ");
-        String salaryStr = sc.nextLine();
-        if (!salaryStr.isEmpty()) e.setSalary(Double.parseDouble(salaryStr));
+            System.out.print("Nuevo Salario: ");
+            String salaryStr = sc.nextLine();
+            if (!salaryStr.isEmpty()) e.setSalary(Double.parseDouble(salaryStr.replace(",", ".")));
 
-        service.updateEmployee(e);
+            service.updateEmployee(e);
+        } catch (Exception e) {
+            System.out.println(" Error al actualizar: " + e.getMessage());
+        }
     }
 
     public void deleteEmployee() {
-        System.out.print("ID del empleado a eliminar: ");
-        int id = Integer.parseInt(sc.nextLine());
-        service.deleteEmployee(id);
+        try {
+            System.out.print("ID del empleado a eliminar: ");
+            int id = Integer.parseInt(sc.nextLine());
+            service.deleteEmployee(id);
+        } catch (Exception e) {
+            System.out.println(" Error al eliminar: " + e.getMessage());
+        }
     }
 }
