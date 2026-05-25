@@ -31,7 +31,7 @@ public class ProductController {
                 case 4: updateProduct(); break;
                 case 5: deleteProduct(); break;
                 case 0: break;
-                default: System.out.println("❌ Opción no válida");
+                default: System.out.println(" Opción no válida");
             }
         } while (opcion != 0);
     }
@@ -69,7 +69,7 @@ public class ProductController {
             System.out.println("Categoría: " + p.getCategory());
             System.out.println("Stock: " + p.getStock());
         } else {
-            System.out.println("❌ Producto no encontrado");
+            System.out.println(" Producto no encontrado");
         }
     }
 

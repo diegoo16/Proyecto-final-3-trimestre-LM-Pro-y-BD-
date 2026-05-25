@@ -45,8 +45,8 @@ public class Main {
                 case 4: orderCtrl.menuPedidos(); break;
                 case 5: detailCtrl.menuDetalles(); break;
                 case 6: exportCustomersToCSV(); break;
-                case 0: System.out.println("👋 Saliendo del sistema CRM_Burguer..."); break;
-                default: System.out.println("❌ Opción no válida.");
+                case 0: System.out.println(" Saliendo del sistema CRM_Burguer..."); break;
+                default: System.out.println(" Opción no válida.");
             }
         } while (option != 0);
 
@@ -58,7 +58,7 @@ public class Main {
         List<Customer> customers = customerService.getAllCustomers();
 
         if (customers.isEmpty()) {
-            System.out.println("⚠️ No hay clientes para exportar.");
+            System.out.println(" No hay clientes para exportar.");
         } else {
             CsvExporter.exportCustomers(customers);
         }

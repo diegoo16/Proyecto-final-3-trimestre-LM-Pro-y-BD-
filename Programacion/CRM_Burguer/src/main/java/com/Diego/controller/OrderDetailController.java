@@ -31,7 +31,7 @@ public class OrderDetailController {
                 case 4: updateOrderDetail(); break;
                 case 5: deleteOrderDetail(); break;
                 case 0: break;
-                default: System.out.println("❌ Opción no válida");
+                default: System.out.println(" Opción no válida");
             }
         } while (opcion != 0);
     }
@@ -71,7 +71,7 @@ public class OrderDetailController {
             System.out.println("Cantidad: " + od.getQuantity());
             System.out.println("Subtotal: " + od.getSubtotal());
         } else {
-            System.out.println("❌ Detalle no encontrado");
+            System.out.println(" Detalle no encontrado");
         }
     }
 

@@ -19,9 +19,9 @@ public class ProductRepository implements CrudRepository<Product> {
             ps.setString(3, p.getCategory());
             ps.setInt(4, p.getStock());
             ps.executeUpdate();
-            System.out.println("✅ Producto creado correctamente");
+            System.out.println(" Producto creado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al crear producto: " + e.getMessage());
+            System.out.println(" Error al crear producto: " + e.getMessage());
         }
     }
 
@@ -43,7 +43,7 @@ public class ProductRepository implements CrudRepository<Product> {
                 );
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return null;
     }
@@ -66,7 +66,7 @@ public class ProductRepository implements CrudRepository<Product> {
                 ));
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return lista;
     }
@@ -83,9 +83,9 @@ public class ProductRepository implements CrudRepository<Product> {
             ps.setInt(4, p.getStock());
             ps.setInt(5, p.getId());
             ps.executeUpdate();
-            System.out.println("✅ Producto actualizado correctamente");
+            System.out.println(" Producto actualizado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al actualizar: " + e.getMessage());
+            System.out.println(" Error al actualizar: " + e.getMessage());
         }
     }
 
@@ -97,9 +97,9 @@ public class ProductRepository implements CrudRepository<Product> {
 
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("✅ Producto eliminado correctamente");
+            System.out.println(" Producto eliminado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al eliminar: " + e.getMessage());
+            System.out.println(" Error al eliminar: " + e.getMessage());
         }
     }
 }

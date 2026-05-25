@@ -20,9 +20,9 @@ public class OrderDetailRepository implements CrudRepository<OrderDetail> {
             ps.setDouble(4, od.getSubtotal());
 
             ps.executeUpdate();
-            System.out.println("✅ Detalle de pedido creado correctamente");
+            System.out.println(" Detalle de pedido creado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al crear detalle: " + e.getMessage());
+            System.out.println(" Error al crear detalle: " + e.getMessage());
         }
     }
 
@@ -44,7 +44,7 @@ public class OrderDetailRepository implements CrudRepository<OrderDetail> {
                 );
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return null;
     }
@@ -67,7 +67,7 @@ public class OrderDetailRepository implements CrudRepository<OrderDetail> {
                 ));
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return lista;
     }
@@ -85,9 +85,9 @@ public class OrderDetailRepository implements CrudRepository<OrderDetail> {
             ps.setInt(5, od.getId());
 
             ps.executeUpdate();
-            System.out.println("✅ Detalle actualizado correctamente");
+            System.out.println(" Detalle actualizado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al actualizar detalle: " + e.getMessage());
+            System.out.println(" Error al actualizar detalle: " + e.getMessage());
         }
     }
 
@@ -99,9 +99,9 @@ public class OrderDetailRepository implements CrudRepository<OrderDetail> {
 
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("✅ Detalle eliminado correctamente");
+            System.out.println(" Detalle eliminado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al eliminar detalle: " + e.getMessage());
+            System.out.println(" Error al eliminar detalle: " + e.getMessage());
         }
     }
 }

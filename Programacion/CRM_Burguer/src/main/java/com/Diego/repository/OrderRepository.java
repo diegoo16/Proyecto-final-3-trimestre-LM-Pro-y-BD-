@@ -32,11 +32,11 @@ public class OrderRepository implements CrudRepository<Order> {
             }
 
             con.commit();
-            System.out.println("✅ Pedido creado correctamente (ID: " + o.getId() + ")");
+            System.out.println(" Pedido creado correctamente (ID: " + o.getId() + ")");
 
         } catch (Exception e) {
             if (con != null) try { con.rollback(); } catch (SQLException ex) {}
-            System.out.println("❌ Error al crear pedido: " + e.getMessage());
+            System.out.println(" Error al crear pedido: " + e.getMessage());
         } finally {
             if (con != null) {
                 try {
@@ -65,7 +65,7 @@ public class OrderRepository implements CrudRepository<Order> {
                 );
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return null;
     }
@@ -88,7 +88,7 @@ public class OrderRepository implements CrudRepository<Order> {
                 ));
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return lista;
     }
@@ -106,9 +106,9 @@ public class OrderRepository implements CrudRepository<Order> {
             ps.setInt(5, o.getId());
 
             ps.executeUpdate();
-            System.out.println("✅ Pedido actualizado correctamente");
+            System.out.println(" Pedido actualizado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al actualizar pedido: " + e.getMessage());
+            System.out.println(" Error al actualizar pedido: " + e.getMessage());
         }
     }
 
@@ -120,9 +120,9 @@ public class OrderRepository implements CrudRepository<Order> {
 
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("✅ Pedido eliminado correctamente");
+            System.out.println(" Pedido eliminado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al eliminar pedido: " + e.getMessage());
+            System.out.println(" Error al eliminar pedido: " + e.getMessage());
         }
     }
 }

@@ -18,9 +18,9 @@ public class EmployeeRepository implements CrudRepository<Employee> {
             ps.setString(2, e.getRole());
             ps.setDouble(3, e.getSalary());
             ps.executeUpdate();
-            System.out.println("✅ Empleado creado correctamente");
+            System.out.println(" Empleado creado correctamente");
         } catch (Exception ex) {
-            System.out.println("❌ Error al crear empleado: " + ex.getMessage());
+            System.out.println(" Error al crear empleado: " + ex.getMessage());
         }
     }
 
@@ -41,7 +41,7 @@ public class EmployeeRepository implements CrudRepository<Employee> {
                 );
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return null;
     }
@@ -63,7 +63,7 @@ public class EmployeeRepository implements CrudRepository<Employee> {
                 ));
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return lista;
     }
@@ -79,9 +79,9 @@ public class EmployeeRepository implements CrudRepository<Employee> {
             ps.setDouble(3, e.getSalary());
             ps.setInt(4, e.getId());
             ps.executeUpdate();
-            System.out.println("✅ Empleado actualizado correctamente");
+            System.out.println(" Empleado actualizado correctamente");
         } catch (Exception ex) {
-            System.out.println("❌ Error al actualizar: " + ex.getMessage());
+            System.out.println(" Error al actualizar: " + ex.getMessage());
         }
     }
 
@@ -93,9 +93,9 @@ public class EmployeeRepository implements CrudRepository<Employee> {
 
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("✅ Empleado eliminado correctamente");
+            System.out.println(" Empleado eliminado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al eliminar: " + e.getMessage());
+            System.out.println(" Error al eliminar: " + e.getMessage());
         }
     }
 }
