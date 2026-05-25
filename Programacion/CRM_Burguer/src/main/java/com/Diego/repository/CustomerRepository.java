@@ -18,9 +18,9 @@ public class CustomerRepository implements CrudRepository<Customer> {
             ps.setString(2, c.getPhone());
             ps.setString(3, c.getEmail());
             ps.executeUpdate();
-            System.out.println("✅ Cliente creado correctamente");
+            System.out.println(" Cliente creado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al crear cliente: " + e.getMessage());
+            System.out.println(" Error al crear cliente: " + e.getMessage());
         }
     }
 
@@ -41,7 +41,7 @@ public class CustomerRepository implements CrudRepository<Customer> {
                 );
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return null;
     }
@@ -63,7 +63,7 @@ public class CustomerRepository implements CrudRepository<Customer> {
                 ));
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println(" Error: " + e.getMessage());
         }
         return lista;
     }
@@ -79,9 +79,9 @@ public class CustomerRepository implements CrudRepository<Customer> {
             ps.setString(3, c.getEmail());
             ps.setInt(4, c.getId());
             ps.executeUpdate();
-            System.out.println("✅ Cliente actualizado correctamente");
+            System.out.println(" Cliente actualizado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al actualizar: " + e.getMessage());
+            System.out.println(" Error al actualizar: " + e.getMessage());
         }
     }
 
@@ -93,9 +93,9 @@ public class CustomerRepository implements CrudRepository<Customer> {
 
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("✅ Cliente eliminado correctamente");
+            System.out.println(" Cliente eliminado correctamente");
         } catch (Exception e) {
-            System.out.println("❌ Error al eliminar: " + e.getMessage());
+            System.out.println(" Error al eliminar: " + e.getMessage());
         }
     }
 }

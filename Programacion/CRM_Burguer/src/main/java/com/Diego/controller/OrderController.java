@@ -32,7 +32,7 @@ public class OrderController {
                 case 4: updateOrder(); break;
                 case 5: deleteOrder(); break;
                 case 0: break;
-                default: System.out.println("❌ Opción no válida");
+                default: System.out.println(" Opción no válida");
             }
         } while (opcion != 0);
     }
@@ -69,7 +69,7 @@ public class OrderController {
             System.out.println("ID Empleado: " + o.getEmployeeId());
             System.out.println("Total: " + o.getTotal());
         } else {
-            System.out.println("❌ Pedido no encontrado");
+            System.out.println(" Pedido no encontrado");
         }
     }
 

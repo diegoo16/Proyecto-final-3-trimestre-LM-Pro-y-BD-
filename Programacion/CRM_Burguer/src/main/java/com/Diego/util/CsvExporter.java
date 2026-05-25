@@ -59,10 +59,10 @@ public class CsvExporter {
                 writer.write(line + "\n");
             }
 
-            System.out.println("✅ Exportación completada: " + filename);
+            System.out.println(" Exportación completada: " + filename);
 
         } catch (IOException e) {
-            System.out.println("❌ Error al exportar a CSV: " + e.getMessage());
+            System.out.println(" Error al exportar a CSV: " + e.getMessage());
         }
     }
 
