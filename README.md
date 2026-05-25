@@ -174,3 +174,4 @@ Abre directamente en el navegador el archivo `Lenguaje de marcas/dashboard.html`
 - El proyecto fue desarrollado con flujo de ramas Git (`feature/Diego` y `feature/Sergio`) y mergeado a `main`.
 - El esquema Oracle (DDL/PL/SQL) y el esquema MySQL (tablas workbench) difieren ligeramente en sintaxis; el backend Java usa exclusivamente MySQL.
 - La carpeta `Ingles/` contiene materiales multimedia del proyecto de la asignatura de inglés relacionados con el producto.
+
