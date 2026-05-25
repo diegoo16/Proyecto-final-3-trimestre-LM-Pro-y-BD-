@@ -11,27 +11,26 @@ import java.util.List;
 
 public class CsvExporter {
 
-    // Exportar Clientes
+
     public static void exportCustomers(List<Customer> customers) {
         exportToCSV("clientes.csv", "ID,Nombre,Teléfono,Email", customers);
     }
 
-    // Exportar Empleados
+
     public static void exportEmployees(List<Employee> employees) {
         exportToCSV("empleados.csv", "ID,Nombre,Cargo,Salario", employees);
     }
 
-    // Exportar Productos
+
     public static void exportProducts(List<Product> products) {
         exportToCSV("productos.csv", "ID,Nombre,Precio,Categoría,Stock", products);
     }
 
-    // Exportar Pedidos
     public static void exportOrders(List<Order> orders) {
         exportToCSV("pedidos.csv", "ID,Fecha,ID_Cliente,ID_Empleado,Total", orders);
     }
 
-    // Método genérico privado
+
     private static <T> void exportToCSV(String filename, String header, List<T> list) {
         try (FileWriter writer = new FileWriter(filename)) {
             writer.write(header + "\n");
@@ -66,7 +65,7 @@ public class CsvExporter {
         }
     }
 
-    // Evita problemas con comas en los campos
+
     private static String escapeCSV(String field) {
         if (field == null) return "";
         if (field.contains(",") || field.contains("\"") || field.contains("\n")) {
