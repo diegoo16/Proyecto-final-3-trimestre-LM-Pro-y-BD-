@@ -2,29 +2,99 @@ package com.Diego.controller;
 
 import com.Diego.model.Employee;
 import com.Diego.service.EmployeeService;
+import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeController {
 
     private Scanner sc = new Scanner(System.in);
-    private EmployeeService service =
-            new EmployeeService();
+    private EmployeeService service = new EmployeeService();
 
-    public void createEmployee(){
+    public void menuEmpleados() {
+        int opcion;
+        do {
+            System.out.println("\n=== GESTIÓN DE EMPLEADOS ===");
+            System.out.println("1. Añadir Empleado");
+            System.out.println("2. Listar Empleados");
+            System.out.println("3. Buscar Empleado por ID");
+            System.out.println("4. Actualizar Empleado");
+            System.out.println("5. Eliminar Empleado");
+            System.out.println("0. Volver");
+            System.out.print("Seleccione opción: ");
+            opcion = sc.nextInt();
+            sc.nextLine();
 
-        System.out.print("Name: ");
+            switch (opcion) {
+                case 1: createEmployee(); break;
+                case 2: listEmployees(); break;
+                case 3: findEmployeeById(); break;
+                case 4: updateEmployee(); break;
+                case 5: deleteEmployee(); break;
+                case 0: break;
+                default: System.out.println("❌ Opción no válida");
+            }
+        } while (opcion != 0);
+    }
+
+    public void createEmployee() {
+        System.out.print("Nombre: ");
         String name = sc.nextLine();
-
-        System.out.print("Role: ");
+        System.out.print("Cargo: ");
         String role = sc.nextLine();
-
-        System.out.print("Salary: ");
+        System.out.print("Salario: ");
         double salary = sc.nextDouble();
         sc.nextLine();
 
-        Employee e =
-                new Employee(0,name,role,salary);
-
+        Employee e = new Employee(0, name, role, salary);
         service.addEmployee(e);
+    }
+
+    public void listEmployees() {
+        List<Employee> employees = service.getAllEmployees();
+        System.out.println("\n=== LISTA DE EMPLEADOS ===");
+        for (Employee e : employees) {
+            System.out.println(e.getId() + " | " + e.getName() + " | " + e.getRole() + " | " + e.getSalary() + "€");
+        }
+    }
+
+    public void findEmployeeById() {
+        System.out.print("ID del empleado: ");
+        int id = Integer.parseInt(sc.nextLine());
+        Employee e = service.getEmployeeById(id);
+        if (e != null) {
+            System.out.println("ID: " + e.getId());
+            System.out.println("Nombre: " + e.getName());
+            System.out.println("Cargo: " + e.getRole());
+            System.out.println("Salario: " + e.getSalary());
+        } else {
+            System.out.println("❌ Empleado no encontrado");
+        }
+    }
+
+    public void updateEmployee() {
+        System.out.print("ID del empleado: ");
+        int id = Integer.parseInt(sc.nextLine());
+        Employee e = service.getEmployeeById(id);
+        if (e == null) return;
+
+        System.out.print("Nuevo Nombre: ");
+        String name = sc.nextLine();
+        if (!name.isEmpty()) e.setName(name);
+
+        System.out.print("Nuevo Cargo: ");
+        String role = sc.nextLine();
+        if (!role.isEmpty()) e.setRole(role);
+
+        System.out.print("Nuevo Salario: ");
+        String salaryStr = sc.nextLine();
+        if (!salaryStr.isEmpty()) e.setSalary(Double.parseDouble(salaryStr));
+
+        service.updateEmployee(e);
+    }
+
+    public void deleteEmployee() {
+        System.out.print("ID del empleado a eliminar: ");
+        int id = Integer.parseInt(sc.nextLine());
+        service.deleteEmployee(id);
     }
 }
