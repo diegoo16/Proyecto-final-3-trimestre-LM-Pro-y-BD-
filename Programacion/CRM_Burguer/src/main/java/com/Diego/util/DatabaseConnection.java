@@ -9,8 +9,8 @@ public class DatabaseConnection {
     private static final String URL =
             "jdbc:mysql://localhost:3306/hamburgueseria_crm?serverTimezone=UTC";
 
-    private static final String USER = "root";   // o root
-    private static final String PASSWORD = "Admin1234";      // tu contraseña
+    private static final String USER = "root";
+    private static final String PASSWORD = "Admin1234";
 
     static {
         try {
