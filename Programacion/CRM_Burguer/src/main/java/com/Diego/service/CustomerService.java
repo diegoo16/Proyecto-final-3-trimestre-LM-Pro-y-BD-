@@ -17,8 +17,8 @@ public class CustomerService {
     }
 
     public void addCustomer(Customer c) {
-        if (c.getName() == null || c.getName().trim().isEmpty()) {
-            System.out.println(" Error: El nombre no puede estar vacío");
+        if (c == null || c.getName() == null || c.getName().trim().isEmpty()) {
+            System.out.println(" Error: El nombre del cliente no puede estar vacío.");
             return;
         }
         customerRepository.create(c);
@@ -34,7 +34,7 @@ public class CustomerService {
 
     public void updateCustomer(Customer c) {
         if (c == null || c.getId() <= 0) {
-            System.out.println(" Error: Datos inválidos para actualizar");
+            System.out.println(" Error: Datos inválidos para actualizar el cliente.");
             return;
         }
         customerRepository.update(c);
@@ -42,9 +42,10 @@ public class CustomerService {
 
     public boolean deleteCustomer(int id) {
         try {
-            // Verificar si tiene pedidos
+            // Verificar si el cliente tiene pedidos
             List<Order> pedidos = orderRepository.findAll();
-            boolean tienePedidos = pedidos.stream().anyMatch(o -> o.getCustomerId() == id);
+            boolean tienePedidos = pedidos.stream()
+                    .anyMatch(o -> o.getCustomerId() == id);
 
             if (tienePedidos) {
                 System.out.println(" No se puede eliminar el cliente.");
