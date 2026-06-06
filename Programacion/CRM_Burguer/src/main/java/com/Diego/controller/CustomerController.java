@@ -1,20 +1,17 @@
 package com.Diego.controller;
 
 import com.Diego.model.Customer;
-import com.Diego.model.Order;
 import com.Diego.service.CustomerService;
-import com.Diego.service.OrderService;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class CustomerController {
 
-    private Scanner sc = new Scanner(System.in);
-    private CustomerService service = new CustomerService();
+    private final Scanner sc = new Scanner(System.in);
+    private final CustomerService service = new CustomerService();
 
     public void menuClientes() {
-        int opcion;
+        int opcion = -1;
         do {
             System.out.println("\n=== GESTIÓN DE CLIENTES ===");
             System.out.println("1. Añadir Cliente");
@@ -36,12 +33,14 @@ public class CustomerController {
                     case 4: updateCustomer(); break;
                     case 5: deleteCustomer(); break;
                     case 0: System.out.println("Volviendo al menú principal..."); break;
-                    default: System.out.println(" Opción no válida");
+                    default: System.out.println(" Opción no válida.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println(" Error: Debes introducir un número.");
                 sc.nextLine();
-                opcion = -1;
+            } catch (Exception e) {
+                System.out.println(" Error inesperado: " + e.getMessage());
+                sc.nextLine();
             }
         } while (opcion != 0);
     }
@@ -64,7 +63,7 @@ public class CustomerController {
 
     public void listCustomers() {
         try {
-            List<Customer> customers = service.getAllCustomers();
+            var customers = service.getAllCustomers();
             System.out.println("\n=== LISTA DE CLIENTES ===");
             if (customers.isEmpty()) {
                 System.out.println("No hay clientes registrados.");
@@ -89,10 +88,10 @@ public class CustomerController {
                 System.out.println("Teléfono: " + c.getPhone());
                 System.out.println("Email: " + c.getEmail());
             } else {
-                System.out.println(" Cliente no encontrado");
+                System.out.println(" Cliente no encontrado.");
             }
         } catch (Exception e) {
-            System.out.println(" Error: ID inválido");
+            System.out.println(" Error: ID inválido.");
         }
     }
 
@@ -102,7 +101,7 @@ public class CustomerController {
             int id = Integer.parseInt(sc.nextLine());
             Customer c = service.getCustomerById(id);
             if (c == null) {
-                System.out.println(" Cliente no encontrado");
+                System.out.println(" Cliente no encontrado.");
                 return;
             }
 
@@ -127,25 +126,12 @@ public class CustomerController {
     public void deleteCustomer() {
         try {
             System.out.print("ID del cliente a eliminar: ");
-            int id = Integer.parseInt(sc.nextLine());
+            int id = Integer.parseInt(sc.nextLine().trim());
 
-            OrderService orderService = new OrderService();
-            List<Order> pedidos = orderService.getAllOrders();
+            service.deleteCustomer(id);   // ← Ahora usa la lógica del Service
 
-            boolean tienePedidos = false;
-            for (Order o : pedidos) {
-                if (o.getCustomerId() == id) {
-                    tienePedidos = true;
-                    break;
-                }
-            }
-
-            if (tienePedidos) {
-                System.out.println(" No se puede eliminar el cliente.");
-                System.out.println("   Tiene pedidos asociados. Elimine primero los pedidos.");
-            } else {
-                service.deleteCustomer(id);
-            }
+        } catch (NumberFormatException e) {
+            System.out.println(" Error: El ID debe ser un número válido.");
         } catch (Exception e) {
             System.out.println(" Error al eliminar: " + e.getMessage());
         }
