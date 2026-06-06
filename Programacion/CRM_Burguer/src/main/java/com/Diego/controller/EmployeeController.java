@@ -3,16 +3,15 @@ package com.Diego.controller;
 import com.Diego.model.Employee;
 import com.Diego.service.EmployeeService;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeController {
 
-    private Scanner sc = new Scanner(System.in);
-    private EmployeeService service = new EmployeeService();
+    private final Scanner sc = new Scanner(System.in);
+    private final EmployeeService service = new EmployeeService();
 
     public void menuEmpleados() {
-        int opcion;
+        int opcion = -1;
         do {
             System.out.println("\n=== GESTIÓN DE EMPLEADOS ===");
             System.out.println("1. Añadir Empleado");
@@ -34,12 +33,13 @@ public class EmployeeController {
                     case 4: updateEmployee(); break;
                     case 5: deleteEmployee(); break;
                     case 0: System.out.println("Volviendo..."); break;
-                    default: System.out.println(" Opción no válida");
+                    default: System.out.println("❌ Opción no válida.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println(" Error: Debes introducir un número.");
                 sc.nextLine();
-                opcion = -1;
+            } catch (Exception e) {
+                System.out.println(" Error inesperado: " + e.getMessage());
             }
         } while (opcion != 0);
     }
@@ -62,13 +62,17 @@ public class EmployeeController {
 
     public void listEmployees() {
         try {
-            List<Employee> employees = service.getAllEmployees();
+            var employees = service.getAllEmployees();
             System.out.println("\n=== LISTA DE EMPLEADOS ===");
-            for (Employee e : employees) {
-                System.out.println(e.getId() + " | " + e.getName() + " | " + e.getRole() + " | " + e.getSalary() + "€");
+            if (employees.isEmpty()) {
+                System.out.println("No hay empleados registrados.");
+            } else {
+                for (Employee e : employees) {
+                    System.out.println(e.getId() + " | " + e.getName() + " | " + e.getRole() + " | " + e.getSalary() + "€");
+                }
             }
         } catch (Exception e) {
-            System.out.println(" Error al listar: " + e.getMessage());
+            System.out.println(" Error al listar empleados: " + e.getMessage());
         }
     }
 
@@ -83,10 +87,10 @@ public class EmployeeController {
                 System.out.println("Cargo: " + e.getRole());
                 System.out.println("Salario: " + e.getSalary());
             } else {
-                System.out.println(" Empleado no encontrado");
+                System.out.println(" Empleado no encontrado.");
             }
         } catch (Exception e) {
-            System.out.println(" Error: ID inválido");
+            System.out.println(" Error: ID inválido.");
         }
     }
 
@@ -95,7 +99,10 @@ public class EmployeeController {
             System.out.print("ID del empleado: ");
             int id = Integer.parseInt(sc.nextLine());
             Employee e = service.getEmployeeById(id);
-            if (e == null) return;
+            if (e == null) {
+                System.out.println(" Empleado no encontrado.");
+                return;
+            }
 
             System.out.print("Nuevo Nombre: ");
             String name = sc.nextLine();
