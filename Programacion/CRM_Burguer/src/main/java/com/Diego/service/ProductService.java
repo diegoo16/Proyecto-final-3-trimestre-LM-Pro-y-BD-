@@ -13,8 +13,12 @@ public class ProductService {
     }
 
     public void addProduct(Product p) {
-        if (p == null || p.getName() == null || p.getName().trim().isEmpty()) {
-            System.out.println(" Error: El nombre del producto no puede estar vacío.");
+        if (p == null) {
+            System.out.println(" Error: Producto no puede ser nulo.");
+            return;
+        }
+        if (p.getName() == null || p.getName().trim().isEmpty()) {
+            System.out.println(" Error: El nombre del producto es obligatorio.");
             return;
         }
         if (p.getPrice() <= 0) {
@@ -25,10 +29,19 @@ public class ProductService {
             System.out.println(" Error: El stock no puede ser negativo.");
             return;
         }
+        if (p.getCategory() == null || p.getCategory().trim().isEmpty()) {
+            System.out.println(" Error: La categoría es obligatoria.");
+            return;
+        }
+
         repository.create(p);
     }
 
     public Product getProductById(int id) {
+        if (id <= 0) {
+            System.out.println(" Error: ID inválido.");
+            return null;
+        }
         return repository.findById(id);
     }
 
@@ -45,6 +58,10 @@ public class ProductService {
     }
 
     public void deleteProduct(int id) {
+        if (id <= 0) {
+            System.out.println(" Error: ID inválido.");
+            return;
+        }
         try {
             repository.delete(id);
             System.out.println(" Producto eliminado correctamente.");
