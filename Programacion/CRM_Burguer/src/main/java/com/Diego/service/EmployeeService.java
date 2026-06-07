@@ -6,9 +6,21 @@ import java.util.List;
 
 public class EmployeeService {
 
-    private EmployeeRepository repository = new EmployeeRepository();
+    private final EmployeeRepository repository;
+
+    public EmployeeService() {
+        this.repository = new EmployeeRepository();
+    }
 
     public void addEmployee(Employee e) {
+        if (e == null || e.getName() == null || e.getName().trim().isEmpty()) {
+            System.out.println(" Error: El nombre del empleado no puede estar vacío.");
+            return;
+        }
+        if (e.getSalary() <= 0) {
+            System.out.println(" Error: El salario debe ser mayor que 0.");
+            return;
+        }
         repository.create(e);
     }
 
@@ -21,10 +33,19 @@ public class EmployeeService {
     }
 
     public void updateEmployee(Employee e) {
+        if (e == null || e.getId() <= 0) {
+            System.out.println(" Error: Datos inválidos para actualizar.");
+            return;
+        }
         repository.update(e);
     }
 
     public void deleteEmployee(int id) {
-        repository.delete(id);
+        try {
+            repository.delete(id);
+            System.out.println(" Empleado eliminado correctamente.");
+        } catch (Exception e) {
+            System.out.println(" Error al eliminar empleado: " + e.getMessage());
+        }
     }
 }
