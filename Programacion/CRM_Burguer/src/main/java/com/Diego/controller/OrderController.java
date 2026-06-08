@@ -34,55 +34,42 @@ public class OrderController {
                     case 4: updateOrder(); break;
                     case 5: deleteOrder(); break;
                     case 0: System.out.println("Volviendo..."); break;
-                    default: System.out.println(" Opción no válida.");
+                    default: System.out.println("Opción no válida.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println(" Error: Debes introducir un número.");
+                System.out.println("Error: Debes introducir un número.");
                 sc.nextLine();
             } catch (Exception e) {
-                System.out.println(" Error inesperado: " + e.getMessage());
+                System.out.println("Error inesperado.");
+                sc.nextLine();
             }
         } while (opcion != 0);
     }
 
     public void createOrder() {
-        try {
-            System.out.print("ID Cliente: ");
-            int customerId = Integer.parseInt(sc.nextLine());
-            System.out.print("ID Empleado: ");
-            int employeeId = Integer.parseInt(sc.nextLine());
-            System.out.print("Total: ");
-            double total = Double.parseDouble(sc.nextLine().replace(",", "."));
+        System.out.print("ID Cliente: ");
+        int customerId = Integer.parseInt(sc.nextLine());
+        System.out.print("ID Empleado: ");
+        int employeeId = Integer.parseInt(sc.nextLine());
+        System.out.print("Total: ");
+        double total = Double.parseDouble(sc.nextLine().replace(",", "."));
 
-            Order o = new Order(0, LocalDateTime.now(), customerId, employeeId, total);
-            service.addOrder(o);
-        } catch (Exception e) {
-            System.out.println(" Error al crear pedido: " + e.getMessage());
-        }
+        Order o = new Order(0, LocalDateTime.now(), customerId, employeeId, total);
+        service.addOrder(o);
     }
 
     public void listOrders() {
-        try {
-            var orders = service.getAllOrders();
-            System.out.println("\n=== LISTA DE PEDIDOS ===");
-            if (orders.isEmpty()) {
-                System.out.println("No hay pedidos registrados.");
-            } else {
-                for (Order o : orders) {
-                    System.out.println(o.getId() + " | Fecha: " + o.getDate()
-                            + " | Cliente: " + o.getCustomerId()
-                            + " | Empleado: " + o.getEmployeeId()
-                            + " | Total: " + o.getTotal() + "€");
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(" Error al listar pedidos: " + e.getMessage());
-        }
+        service.getAllOrders().forEach(o ->
+                System.out.println(o.getId() + " | Fecha: " + o.getDate()
+                        + " | Cliente: " + o.getCustomerId()
+                        + " | Empleado: " + o.getEmployeeId()
+                        + " | Total: " + o.getTotal() + "€")
+        );
     }
 
     public void findOrderById() {
+        System.out.print("ID del pedido: ");
         try {
-            System.out.print("ID del pedido: ");
             int id = Integer.parseInt(sc.nextLine());
             Order o = service.getOrderById(id);
             if (o != null) {
@@ -92,20 +79,20 @@ public class OrderController {
                 System.out.println("ID Empleado: " + o.getEmployeeId());
                 System.out.println("Total: " + o.getTotal());
             } else {
-                System.out.println(" Pedido no encontrado.");
+                System.out.println("Pedido no encontrado.");
             }
         } catch (Exception e) {
-            System.out.println(" Error: ID inválido.");
+            System.out.println("Error: ID inválido.");
         }
     }
 
     public void updateOrder() {
+        System.out.print("ID del pedido: ");
         try {
-            System.out.print("ID del pedido: ");
             int id = Integer.parseInt(sc.nextLine());
             Order o = service.getOrderById(id);
             if (o == null) {
-                System.out.println(" Pedido no encontrado.");
+                System.out.println("Pedido no encontrado.");
                 return;
             }
 
@@ -123,17 +110,17 @@ public class OrderController {
 
             service.updateOrder(o);
         } catch (Exception e) {
-            System.out.println(" Error al actualizar: " + e.getMessage());
+            System.out.println("Error al actualizar pedido.");
         }
     }
 
     public void deleteOrder() {
+        System.out.print("ID del pedido a eliminar: ");
         try {
-            System.out.print("ID del pedido a eliminar: ");
             int id = Integer.parseInt(sc.nextLine());
             service.deleteOrder(id);
         } catch (Exception e) {
-            System.out.println(" Error al eliminar: " + e.getMessage());
+            System.out.println("Error al eliminar pedido.");
         }
     }
 }

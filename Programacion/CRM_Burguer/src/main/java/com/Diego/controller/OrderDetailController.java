@@ -33,56 +33,43 @@ public class OrderDetailController {
                     case 4: updateOrderDetail(); break;
                     case 5: deleteOrderDetail(); break;
                     case 0: System.out.println("Volviendo..."); break;
-                    default: System.out.println(" Opción no válida.");
+                    default: System.out.println("Opción no válida.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println(" Error: Debes introducir un número.");
+                System.out.println("Error: Debes introducir un número.");
                 sc.nextLine();
             } catch (Exception e) {
-                System.out.println(" Error inesperado: " + e.getMessage());
+                System.out.println("Error inesperado.");
+                sc.nextLine();
             }
         } while (opcion != 0);
     }
 
     public void createOrderDetail() {
-        try {
-            System.out.print("ID Pedido: ");
-            int orderId = Integer.parseInt(sc.nextLine());
-            System.out.print("ID Producto: ");
-            int productId = Integer.parseInt(sc.nextLine());
-            System.out.print("Cantidad: ");
-            int quantity = Integer.parseInt(sc.nextLine());
-            System.out.print("Subtotal: ");
-            double subtotal = Double.parseDouble(sc.nextLine().replace(",", "."));
+        System.out.print("ID Pedido: ");
+        int orderId = Integer.parseInt(sc.nextLine());
+        System.out.print("ID Producto: ");
+        int productId = Integer.parseInt(sc.nextLine());
+        System.out.print("Cantidad: ");
+        int quantity = Integer.parseInt(sc.nextLine());
+        System.out.print("Subtotal: ");
+        double subtotal = Double.parseDouble(sc.nextLine().replace(",", "."));
 
-            OrderDetail od = new OrderDetail(0, orderId, productId, quantity, subtotal);
-            service.addOrderDetail(od);
-        } catch (Exception e) {
-            System.out.println(" Error al crear detalle: " + e.getMessage());
-        }
+        OrderDetail od = new OrderDetail(0, orderId, productId, quantity, subtotal);
+        service.addOrderDetail(od);
     }
 
     public void listOrderDetails() {
-        try {
-            var details = service.getAllOrderDetails();
-            System.out.println("\n=== LISTA DE DETALLES ===");
-            if (details.isEmpty()) {
-                System.out.println("No hay detalles registrados.");
-            } else {
-                for (OrderDetail od : details) {
-                    System.out.println("ID: " + od.getId() + " | Pedido: " + od.getOrderId()
-                            + " | Producto: " + od.getProductId()
-                            + " | Cant: " + od.getQuantity() + " | Subtotal: " + od.getSubtotal());
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(" Error al listar detalles: " + e.getMessage());
-        }
+        service.getAllOrderDetails().forEach(od ->
+                System.out.println("ID: " + od.getId() + " | Pedido: " + od.getOrderId()
+                        + " | Producto: " + od.getProductId()
+                        + " | Cant: " + od.getQuantity() + " | Subtotal: " + od.getSubtotal())
+        );
     }
 
     public void findOrderDetailById() {
+        System.out.print("ID del detalle: ");
         try {
-            System.out.print("ID del detalle: ");
             int id = Integer.parseInt(sc.nextLine());
             OrderDetail od = service.getOrderDetailById(id);
             if (od != null) {
@@ -92,20 +79,20 @@ public class OrderDetailController {
                 System.out.println("Cantidad: " + od.getQuantity());
                 System.out.println("Subtotal: " + od.getSubtotal());
             } else {
-                System.out.println(" Detalle no encontrado.");
+                System.out.println("Detalle no encontrado.");
             }
         } catch (Exception e) {
-            System.out.println(" Error: ID inválido.");
+            System.out.println("Error: ID inválido.");
         }
     }
 
     public void updateOrderDetail() {
+        System.out.print("ID del detalle: ");
         try {
-            System.out.print("ID del detalle: ");
             int id = Integer.parseInt(sc.nextLine());
             OrderDetail od = service.getOrderDetailById(id);
             if (od == null) {
-                System.out.println(" Detalle no encontrado.");
+                System.out.println("Detalle no encontrado.");
                 return;
             }
 
@@ -127,17 +114,17 @@ public class OrderDetailController {
 
             service.updateOrderDetail(od);
         } catch (Exception e) {
-            System.out.println(" Error al actualizar: " + e.getMessage());
+            System.out.println("Error al actualizar detalle.");
         }
     }
 
     public void deleteOrderDetail() {
+        System.out.print("ID del detalle a eliminar: ");
         try {
-            System.out.print("ID del detalle a eliminar: ");
             int id = Integer.parseInt(sc.nextLine());
             service.deleteOrderDetail(id);
         } catch (Exception e) {
-            System.out.println(" Error al eliminar: " + e.getMessage());
+            System.out.println("Error al eliminar detalle.");
         }
     }
 }

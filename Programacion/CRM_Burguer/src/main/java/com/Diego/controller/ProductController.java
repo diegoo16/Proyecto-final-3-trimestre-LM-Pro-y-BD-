@@ -33,54 +33,41 @@ public class ProductController {
                     case 4: updateProduct(); break;
                     case 5: deleteProduct(); break;
                     case 0: System.out.println("Volviendo..."); break;
-                    default: System.out.println("❌ Opción no válida.");
+                    default: System.out.println("Opción no válida.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println(" Error: Debes introducir un número.");
+                System.out.println("Error: Debes introducir un número.");
                 sc.nextLine();
             } catch (Exception e) {
-                System.out.println(" Error inesperado: " + e.getMessage());
+                System.out.println("Error inesperado.");
+                sc.nextLine();
             }
         } while (opcion != 0);
     }
 
     public void createProduct() {
-        try {
-            System.out.print("Nombre: ");
-            String name = sc.nextLine();
-            System.out.print("Precio: ");
-            double price = Double.parseDouble(sc.nextLine().replace(",", "."));
-            System.out.print("Categoría: ");
-            String category = sc.nextLine();
-            System.out.print("Stock: ");
-            int stock = Integer.parseInt(sc.nextLine());
+        System.out.print("Nombre: ");
+        String name = sc.nextLine();
+        System.out.print("Precio: ");
+        double price = Double.parseDouble(sc.nextLine().replace(",", "."));
+        System.out.print("Categoría: ");
+        String category = sc.nextLine();
+        System.out.print("Stock: ");
+        int stock = Integer.parseInt(sc.nextLine());
 
-            Product p = new Product(0, name, price, category, stock);
-            service.addProduct(p);
-        } catch (Exception e) {
-            System.out.println(" Error al crear producto: " + e.getMessage());
-        }
+        Product p = new Product(0, name, price, category, stock);
+        service.addProduct(p);
     }
 
     public void listProducts() {
-        try {
-            var products = service.getAllProducts();
-            System.out.println("\n=== LISTA DE PRODUCTOS ===");
-            if (products.isEmpty()) {
-                System.out.println("No hay productos registrados.");
-            } else {
-                for (Product p : products) {
-                    System.out.println(p.getId() + " | " + p.getName() + " | " + p.getPrice() + "€ | Stock: " + p.getStock());
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(" Error al listar productos: " + e.getMessage());
-        }
+        service.getAllProducts().forEach(p ->
+                System.out.println(p.getId() + " | " + p.getName() + " | " + p.getPrice() + "€ | Stock: " + p.getStock())
+        );
     }
 
     public void findProductById() {
+        System.out.print("ID del producto: ");
         try {
-            System.out.print("ID del producto: ");
             int id = Integer.parseInt(sc.nextLine());
             Product p = service.getProductById(id);
             if (p != null) {
@@ -90,20 +77,20 @@ public class ProductController {
                 System.out.println("Categoría: " + p.getCategory());
                 System.out.println("Stock: " + p.getStock());
             } else {
-                System.out.println(" Producto no encontrado.");
+                System.out.println("Producto no encontrado.");
             }
         } catch (Exception e) {
-            System.out.println(" Error: ID inválido.");
+            System.out.println("Error: ID inválido.");
         }
     }
 
     public void updateProduct() {
+        System.out.print("ID del producto: ");
         try {
-            System.out.print("ID del producto: ");
             int id = Integer.parseInt(sc.nextLine());
             Product p = service.getProductById(id);
             if (p == null) {
-                System.out.println(" Producto no encontrado.");
+                System.out.println("Producto no encontrado.");
                 return;
             }
 
@@ -125,17 +112,17 @@ public class ProductController {
 
             service.updateProduct(p);
         } catch (Exception e) {
-            System.out.println(" Error al actualizar: " + e.getMessage());
+            System.out.println("Error al actualizar producto.");
         }
     }
 
     public void deleteProduct() {
+        System.out.print("ID del producto a eliminar: ");
         try {
-            System.out.print("ID del producto a eliminar: ");
             int id = Integer.parseInt(sc.nextLine());
             service.deleteProduct(id);
         } catch (Exception e) {
-            System.out.println("Error al eliminar: " + e.getMessage());
+            System.out.println("Error al eliminar producto.");
         }
     }
 }
