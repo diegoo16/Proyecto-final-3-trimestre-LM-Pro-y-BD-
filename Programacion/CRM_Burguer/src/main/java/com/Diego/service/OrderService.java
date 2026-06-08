@@ -60,7 +60,7 @@ public class OrderService {
         }
         try {
             repository.delete(id);
-            System.out.println("Pedido eliminado correctamente.");
+
         } catch (Exception e) {
             System.out.println("Error al eliminar pedido: " + e.getMessage());
         }

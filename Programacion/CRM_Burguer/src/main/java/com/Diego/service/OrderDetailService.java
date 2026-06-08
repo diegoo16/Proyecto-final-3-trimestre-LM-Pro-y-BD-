@@ -64,7 +64,7 @@ public class OrderDetailService {
         }
         try {
             repository.delete(id);
-            System.out.println("Detalle eliminado correctamente.");
+
         } catch (Exception e) {
             System.out.println("Error al eliminar detalle: " + e.getMessage());
         }

@@ -33,53 +33,39 @@ public class CustomerController {
                     case 4: updateCustomer(); break;
                     case 5: deleteCustomer(); break;
                     case 0: System.out.println("Volviendo al menú principal..."); break;
-                    default: System.out.println(" Opción no válida.");
+                    default: System.out.println("Opción no válida.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println(" Error: Debes introducir un número.");
+                System.out.println("Error: Debes introducir un número.");
                 sc.nextLine();
             } catch (Exception e) {
-                System.out.println(" Error inesperado: " + e.getMessage());
+                System.out.println("Error inesperado.");
                 sc.nextLine();
             }
         } while (opcion != 0);
     }
 
     public void createCustomer() {
-        try {
-            System.out.print("Nombre: ");
-            String name = sc.nextLine();
-            System.out.print("Teléfono: ");
-            String phone = sc.nextLine();
-            System.out.print("Email: ");
-            String email = sc.nextLine();
+        System.out.print("Nombre: ");
+        String name = sc.nextLine();
+        System.out.print("Teléfono: ");
+        String phone = sc.nextLine();
+        System.out.print("Email: ");
+        String email = sc.nextLine();
 
-            Customer c = new Customer(0, name, phone, email);
-            service.addCustomer(c);
-        } catch (Exception e) {
-            System.out.println(" Error al crear cliente: " + e.getMessage());
-        }
+        Customer c = new Customer(0, name, phone, email);
+        service.addCustomer(c);
     }
 
     public void listCustomers() {
-        try {
-            var customers = service.getAllCustomers();
-            System.out.println("\n=== LISTA DE CLIENTES ===");
-            if (customers.isEmpty()) {
-                System.out.println("No hay clientes registrados.");
-            } else {
-                for (Customer c : customers) {
-                    System.out.println(c.getId() + " | " + c.getName() + " | " + c.getPhone() + " | " + c.getEmail());
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(" Error al listar clientes: " + e.getMessage());
-        }
+        service.getAllCustomers().forEach(c ->
+                System.out.println(c.getId() + " | " + c.getName() + " | " + c.getPhone() + " | " + c.getEmail())
+        );
     }
 
     public void findCustomerById() {
+        System.out.print("ID del cliente: ");
         try {
-            System.out.print("ID del cliente: ");
             int id = Integer.parseInt(sc.nextLine());
             Customer c = service.getCustomerById(id);
             if (c != null) {
@@ -88,52 +74,48 @@ public class CustomerController {
                 System.out.println("Teléfono: " + c.getPhone());
                 System.out.println("Email: " + c.getEmail());
             } else {
-                System.out.println(" Cliente no encontrado.");
+                System.out.println("Cliente no encontrado.");
             }
         } catch (Exception e) {
-            System.out.println(" Error: ID inválido.");
+            System.out.println("Error: ID inválido.");
         }
     }
 
     public void updateCustomer() {
+        System.out.print("ID del cliente a actualizar: ");
         try {
-            System.out.print("ID del cliente a actualizar: ");
             int id = Integer.parseInt(sc.nextLine());
             Customer c = service.getCustomerById(id);
             if (c == null) {
-                System.out.println(" Cliente no encontrado.");
+                System.out.println("Cliente no encontrado.");
                 return;
             }
 
-            System.out.print("Nuevo Nombre (" + c.getName() + "): ");
+            System.out.print("Nuevo Nombre: ");
             String name = sc.nextLine();
             if (!name.isEmpty()) c.setName(name);
 
-            System.out.print("Nuevo Teléfono (" + c.getPhone() + "): ");
+            System.out.print("Nuevo Teléfono: ");
             String phone = sc.nextLine();
             if (!phone.isEmpty()) c.setPhone(phone);
 
-            System.out.print("Nuevo Email (" + c.getEmail() + "): ");
+            System.out.print("Nuevo Email: ");
             String email = sc.nextLine();
             if (!email.isEmpty()) c.setEmail(email);
 
             service.updateCustomer(c);
         } catch (Exception e) {
-            System.out.println(" Error al actualizar: " + e.getMessage());
+            System.out.println("Error al actualizar cliente.");
         }
     }
 
     public void deleteCustomer() {
+        System.out.print("ID del cliente a eliminar: ");
         try {
-            System.out.print("ID del cliente a eliminar: ");
-            int id = Integer.parseInt(sc.nextLine().trim());
-
-            service.deleteCustomer(id);   // ← Ahora usa la lógica del Service
-
-        } catch (NumberFormatException e) {
-            System.out.println(" Error: El ID debe ser un número válido.");
+            int id = Integer.parseInt(sc.nextLine());
+            service.deleteCustomer(id);
         } catch (Exception e) {
-            System.out.println(" Error al eliminar: " + e.getMessage());
+            System.out.println("Error al eliminar cliente.");
         }
     }
 }

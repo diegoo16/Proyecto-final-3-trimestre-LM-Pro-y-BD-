@@ -74,7 +74,7 @@ public class CustomerService {
 
     public boolean deleteCustomer(int id) {
         if (id <= 0) {
-            System.out.println(" Error: ID inválido.");
+            System.out.println("Error: ID inválido.");
             return false;
         }
 
@@ -83,17 +83,16 @@ public class CustomerService {
             boolean tienePedidos = pedidos.stream().anyMatch(o -> o.getCustomerId() == id);
 
             if (tienePedidos) {
-                System.out.println(" No se puede eliminar el cliente.");
-                System.out.println("Tiene pedidos asociados.");
+                System.out.println("No se puede eliminar el cliente.");
+                System.out.println("   Tiene pedidos asociados. Elimine primero los pedidos.");
                 return false;
             }
 
             customerRepository.delete(id);
-            System.out.println(" Cliente eliminado correctamente.");
             return true;
 
         } catch (Exception e) {
-            System.out.println(" Error al eliminar cliente: " + e.getMessage());
+            System.out.println("Error al eliminar cliente: " + e.getMessage());
             return false;
         }
     }

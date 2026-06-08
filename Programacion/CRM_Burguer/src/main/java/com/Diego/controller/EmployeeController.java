@@ -33,52 +33,39 @@ public class EmployeeController {
                     case 4: updateEmployee(); break;
                     case 5: deleteEmployee(); break;
                     case 0: System.out.println("Volviendo..."); break;
-                    default: System.out.println("❌ Opción no válida.");
+                    default: System.out.println("Opción no válida.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println(" Error: Debes introducir un número.");
+                System.out.println("Error: Debes introducir un número.");
                 sc.nextLine();
             } catch (Exception e) {
-                System.out.println(" Error inesperado: " + e.getMessage());
+                System.out.println("Error inesperado.");
+                sc.nextLine();
             }
         } while (opcion != 0);
     }
 
     public void createEmployee() {
-        try {
-            System.out.print("Nombre: ");
-            String name = sc.nextLine();
-            System.out.print("Cargo: ");
-            String role = sc.nextLine();
-            System.out.print("Salario: ");
-            double salary = Double.parseDouble(sc.nextLine().replace(",", "."));
+        System.out.print("Nombre: ");
+        String name = sc.nextLine();
+        System.out.print("Cargo: ");
+        String role = sc.nextLine();
+        System.out.print("Salario: ");
+        double salary = Double.parseDouble(sc.nextLine().replace(",", "."));
 
-            Employee e = new Employee(0, name, role, salary);
-            service.addEmployee(e);
-        } catch (Exception e) {
-            System.out.println(" Error al crear empleado: " + e.getMessage());
-        }
+        Employee e = new Employee(0, name, role, salary);
+        service.addEmployee(e);
     }
 
     public void listEmployees() {
-        try {
-            var employees = service.getAllEmployees();
-            System.out.println("\n=== LISTA DE EMPLEADOS ===");
-            if (employees.isEmpty()) {
-                System.out.println("No hay empleados registrados.");
-            } else {
-                for (Employee e : employees) {
-                    System.out.println(e.getId() + " | " + e.getName() + " | " + e.getRole() + " | " + e.getSalary() + "€");
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(" Error al listar empleados: " + e.getMessage());
-        }
+        service.getAllEmployees().forEach(e ->
+                System.out.println(e.getId() + " | " + e.getName() + " | " + e.getRole() + " | " + e.getSalary() + "€")
+        );
     }
 
     public void findEmployeeById() {
+        System.out.print("ID del empleado: ");
         try {
-            System.out.print("ID del empleado: ");
             int id = Integer.parseInt(sc.nextLine());
             Employee e = service.getEmployeeById(id);
             if (e != null) {
@@ -87,20 +74,20 @@ public class EmployeeController {
                 System.out.println("Cargo: " + e.getRole());
                 System.out.println("Salario: " + e.getSalary());
             } else {
-                System.out.println(" Empleado no encontrado.");
+                System.out.println("Empleado no encontrado.");
             }
         } catch (Exception e) {
-            System.out.println(" Error: ID inválido.");
+            System.out.println("Error: ID inválido.");
         }
     }
 
     public void updateEmployee() {
+        System.out.print("ID del empleado: ");
         try {
-            System.out.print("ID del empleado: ");
             int id = Integer.parseInt(sc.nextLine());
             Employee e = service.getEmployeeById(id);
             if (e == null) {
-                System.out.println(" Empleado no encontrado.");
+                System.out.println("Empleado no encontrado.");
                 return;
             }
 
@@ -118,17 +105,17 @@ public class EmployeeController {
 
             service.updateEmployee(e);
         } catch (Exception e) {
-            System.out.println(" Error al actualizar: " + e.getMessage());
+            System.out.println("Error al actualizar empleado.");
         }
     }
 
     public void deleteEmployee() {
+        System.out.print("ID del empleado a eliminar: ");
         try {
-            System.out.print("ID del empleado a eliminar: ");
             int id = Integer.parseInt(sc.nextLine());
             service.deleteEmployee(id);
         } catch (Exception e) {
-            System.out.println(" Error al eliminar: " + e.getMessage());
+            System.out.println("Error al eliminar empleado.");
         }
     }
 }

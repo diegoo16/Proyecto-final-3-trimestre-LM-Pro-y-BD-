@@ -59,14 +59,14 @@ public class ProductService {
 
     public void deleteProduct(int id) {
         if (id <= 0) {
-            System.out.println(" Error: ID inválido.");
+            System.out.println("Error: ID inválido.");
             return;
         }
         try {
             repository.delete(id);
-            System.out.println(" Producto eliminado correctamente.");
+
         } catch (Exception e) {
-            System.out.println(" Error al eliminar producto: " + e.getMessage());
+            System.out.println("Error al eliminar producto: " + e.getMessage());
         }
     }
 }
